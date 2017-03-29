@@ -4,7 +4,8 @@ import java.util.List;
 
 
 public interface IEffectenbeurs {
-
-	List<IFonds> getKoersen();
+   
+    List<IFonds> getKoersen();
+    
 
 }

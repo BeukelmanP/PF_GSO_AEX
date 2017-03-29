@@ -1,12 +1,21 @@
 package gso_aex;
 
 import java.util.List;
+import java.util.Random;
 
 
 public class MockEffectenbeurs implements IEffectenbeurs {
-
+    
+    
+    private List<IFonds> Koersen;
+    
     @Override
     public List<IFonds> getKoersen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Random rnd = new Random();
+        for(IFonds fonds : Koersen){
+           fonds.setRndKoers(rnd);
+        }
+        return Koersen;
     }
+
 }
