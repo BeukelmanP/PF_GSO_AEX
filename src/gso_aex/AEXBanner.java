@@ -1,4 +1,4 @@
-package aex.client;
+package gso_aex;
 
 import gso_aex.BannerController;
 import javafx.animation.AnimationTimer;
@@ -26,7 +26,7 @@ public class AEXBanner extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        controller = new BannerController();
+        controller = new BannerController(this);
 
         Font font = new Font("Arial", HEIGHT);
         text = new Text();
