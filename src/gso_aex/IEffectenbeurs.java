@@ -1,11 +1,12 @@
 package gso_aex;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public interface IEffectenbeurs {
    
-    List<IFonds> getKoersen();
+    ArrayList<IFonds> getKoersen();
     
 
 }

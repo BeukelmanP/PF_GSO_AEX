@@ -1,6 +1,5 @@
 package gso_aex;
 
-import gso_aex.BannerController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,12 +13,12 @@ public class AEXBanner extends Application {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 100;
-    public static final int NANO_TICKS = 20000000; 
+    public static final int NANO_TICKS = 20000000;
     // FRAME_RATE = 1000000000/NANO_TICKS = 50;
 
     private Text text;
     private double textLength;
-    private double textPosition;
+    private double textPosition = 1000;
     private BannerController controller;
     private AnimationTimer animationTimer;
 
@@ -42,27 +41,41 @@ public class AEXBanner extends Application {
         primaryStage.show();
         primaryStage.toFront();
 
-
         // Start animation: text moves from right to left
         animationTimer = new AnimationTimer() {
             private long prevUpdate;
-            
+
             @Override
             public void handle(long now) {
                 long lag = now - prevUpdate;
                 if (lag >= NANO_TICKS) {
-                    // calculate new location of text
-                    // TODO
-                    text.relocate(textPosition,0);
+                    if (textPosition >= (0 - textLength)) {
+                        textPosition = textPosition - 5;
+                    } else {
+                        textPosition = 1000;
+                    }
+                    String sKoers = "";
+                    for (IFonds F : controller.getKoersen()) {
+                        sKoers = sKoers + F.getNaam() + ": " + F.getKoers() + "; ";
+                    }
+                    setKoersen(sKoers);
+                    // lculate new location of text
+                    // TODOca
+                    text.relocate(textPosition, 0);
                     prevUpdate = now;
                 }
             }
+
             @Override
             public void start() {
                 prevUpdate = System.nanoTime();
                 textPosition = WIDTH;
                 text.relocate(textPosition, 0);
-                setKoersen("Nothing to display");
+                String sKoers = "";
+                for (IFonds F : controller.getKoersen()) {
+                    sKoers = sKoers + F.getNaam() + ": " + F.getKoers() + "; ";
+                }
+                setKoersen(sKoers);
                 super.start();
             }
         };
@@ -78,5 +91,12 @@ public class AEXBanner extends Application {
     public void stop() {
         animationTimer.stop();
         controller.stop();
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
     }
 }
