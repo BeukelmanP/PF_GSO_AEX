@@ -1,7 +1,10 @@
-package gso_aex;
+package server;
 
+import java.rmi.server.UnicastRemoteObject;
+import shared.IFonds;
+import shared.Fonds;
+import shared.IEffectenbeurs;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Effectenbeurs implements IEffectenbeurs {

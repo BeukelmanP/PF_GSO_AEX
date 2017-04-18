@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gso_aex;
+package shared;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  *
  * @author Fred
  */
-public class Fonds implements IFonds{
+public class Fonds implements IFonds, Serializable{
     //props 
     private String naam;
     private double koers;

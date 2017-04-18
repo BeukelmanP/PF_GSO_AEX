@@ -1,4 +1,4 @@
-package gso_aex;
+package shared;
 
 import java.util.Random;
 

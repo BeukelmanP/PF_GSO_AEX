@@ -1,5 +1,11 @@
 package gso_aex;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import shared.IFonds;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import server.RMIServer;
 
 public class AEXBanner extends Application {
 
@@ -24,8 +31,8 @@ public class AEXBanner extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-        controller = new BannerController(this);
+        
+        controller = new BannerController(this, "192.168.225.68", 1099);
 
         Font font = new Font("Arial", HEIGHT);
         text = new Text();
