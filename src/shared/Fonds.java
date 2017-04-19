@@ -35,8 +35,14 @@ public class Fonds implements IFonds, Serializable{
     }
 
     //methods
+    @Override
     public void setRndKoers(Random rnd){
         koers = rnd.nextDouble();
+    }
+    
+    @Override
+    public String toString(){
+        return naam + " " + koers;
     }
     
 }

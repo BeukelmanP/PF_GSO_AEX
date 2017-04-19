@@ -1,5 +1,7 @@
 package server;
 
+import fontyspublisher.IRemotePropertyListener;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import shared.IFonds;
 import shared.Fonds;
@@ -20,5 +22,10 @@ public class Effectenbeurs implements IEffectenbeurs {
     @Override
     public ArrayList<IFonds> getKoersen() {
         return Koersen;
+    }
+
+    @Override
+    public void addListener(IRemotePropertyListener listener, String property) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

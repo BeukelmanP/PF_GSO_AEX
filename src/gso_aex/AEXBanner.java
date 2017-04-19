@@ -2,6 +2,7 @@ package gso_aex;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,11 @@ public class AEXBanner extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        controller = new BannerController(this, "192.168.225.68", 1099);
+        try {
+            controller = new BannerController(this, "192.168.225.68", 1099);
+        } catch (RemoteException ex) {
+            Logger.getLogger(AEXBanner.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Font font = new Font("Arial", HEIGHT);
         text = new Text();
@@ -61,11 +66,6 @@ public class AEXBanner extends Application {
                     } else {
                         textPosition = 1000;
                     }
-                    String sKoers = "";
-                    for (IFonds F : controller.getKoersen()) {
-                        sKoers = sKoers + F.getNaam() + ": " + F.getKoers() + "; ";
-                    }
-                    setKoersen(sKoers);
                     // lculate new location of text
                     // TODOca
                     text.relocate(textPosition, 0);
@@ -78,11 +78,6 @@ public class AEXBanner extends Application {
                 prevUpdate = System.nanoTime();
                 textPosition = WIDTH;
                 text.relocate(textPosition, 0);
-                String sKoers = "";
-                for (IFonds F : controller.getKoersen()) {
-                    sKoers = sKoers + F.getNaam() + ": " + F.getKoers() + "; ";
-                }
-                setKoersen(sKoers);
                 super.start();
             }
         };

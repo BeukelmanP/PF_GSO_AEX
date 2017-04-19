@@ -5,14 +5,12 @@
  */
 package server;
 
+import fontyspublisher.RemotePublisher;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,9 +30,11 @@ public class RMIServer {
     private Registry registry = null;
     private MockEffectenbeurs mockEffectenBeurs = null;
 
+    //Publisher which will be updated whenever the mockeffectenbeurs is updated
+    private RemotePublisher publisher;
+    
     // Constructor
-    public RMIServer() {
-
+    public RMIServer() throws RemoteException {        
         // Print port number for registry
         System.out.println("Server: Port number " + portNumber);
 
@@ -56,11 +56,11 @@ public class RMIServer {
             registry = null;
         }
 
-        // Bind student administration using registry
+        // Bind mockeffectenbeurs using registry
         try {
             registry.rebind(bindingName, mockEffectenBeurs);
         } catch (RemoteException ex) {
-            System.out.println("Server: Cannot bind student administration");
+            System.out.println("Server: Cannot bind mock");
             System.out.println("Server: RemoteException: " + ex.getMessage());
         }
     }
@@ -88,7 +88,12 @@ public class RMIServer {
         // Print IP addresses and network interfaces
         printIPAddresses();
 
-        // Create server
-        RMIServer server = new RMIServer();
+        try {
+            // Create server
+            RMIServer server = new RMIServer();
+        } catch (RemoteException ex) {
+            System.out.println("server didnt start");
+            Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
